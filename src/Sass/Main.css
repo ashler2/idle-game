@@ -1,0 +1,118 @@
+.App {
+  color: black;
+  font-size: 1em;
+  display: -ms-grid;
+  display: grid;
+  margin: 20px;
+  -ms-grid-columns: 450px 1fr;
+      grid-template-columns: 450px 1fr;
+  -ms-grid-rows: 8vh 12vh 79vh;
+      grid-template-rows: 8vh 12vh 79vh;
+      grid-template-areas: "CurrentMoney__container CurrentMoney__container" "Info__container ." "Clicker__container Upgrade__container";
+}
+
+.CurrentMoney__container {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: CurrentMoney__container;
+  text-align: center;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.Info__container {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: Info__container;
+  text-align: center;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.Clicker__container {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: Clicker__container;
+  text-align: center;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.Clicker__container button {
+  background: black;
+  color: white;
+}
+
+.Upgrade__container {
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
+  grid-area: Upgrade__container;
+  text-align: center;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: "Upgrade__container__name Upgrade__container__perSecond Upgrade__container__cost" "Upgrade__container__img Upgrade__container__multiplier Upgrade__container__button";
+}
+
+.Upgrade__container .Upgrade__container__name {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: Upgrade__container__name;
+}
+
+.Upgrade__container .Upgrade__container__img {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: Upgrade__container__img;
+}
+/*# sourceMappingURL=Main.css.map */

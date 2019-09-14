@@ -1,10 +1,11 @@
 import React from "react";
 
-import "./App.css";
+import "./Sass/Main.css";
 import Cash from "./components/Cash";
 import Clicker from "./components/Clicker";
 import Upgrade from "./components/Upgrade";
 import { upgrades } from "./components/upgradesArray";
+import Info from "./components/Info";
 class App extends React.Component {
   state = {
     cash: 0,
@@ -13,37 +14,12 @@ class App extends React.Component {
     buyMultiplier: 1,
     saveObj: {}
   };
-  componentDidMount = async () => {
-    setInterval(this.cashPerSecond, 1000);
-    window.onbeforeunload = () => {
-      const obj = this.state.saveObj;
-      localStorage.setItem("gameSession", JSON.stringify(obj));
-    };
-    const save = JSON.parse(localStorage.getItem("gameSession"));
-    if (save !== null) {
-      await this.setState({
-        cash: save.cash,
-        saveObj: save
-      });
-    }
-    if (save !== undefined) {
-      if (save !== null) {
-        this.setState({
-          perSecond: upgrades.reduce((a, b) => {
-            return a + save[b.name].perSecond;
-          }, 0)
-        });
-      }
-    }
-  };
+
   render() {
     return (
       <div className="App">
-        <Cash
-          cash={this.state.cash}
-          cashClick={1}
-          cashSec={this.state.perSecond}
-        ></Cash>
+        <Cash cash={this.state.cash}></Cash>
+        <Info cashClick={1} cashSec={this.state.perSecond}></Info>
         <Clicker click={this.click}></Clicker>
         <div className="upgrades">
           {upgrades.map((item, index) => {
@@ -94,6 +70,29 @@ class App extends React.Component {
       obj[key] = { ...value };
     }
     return obj;
+  };
+  componentDidMount = async () => {
+    setInterval(this.cashPerSecond, 1000);
+    window.onbeforeunload = () => {
+      const obj = this.state.saveObj;
+      localStorage.setItem("gameSession", JSON.stringify(obj));
+    };
+    const save = JSON.parse(localStorage.getItem("gameSession"));
+    if (save !== null) {
+      await this.setState({
+        cash: save.cash,
+        saveObj: save
+      });
+    }
+    if (save !== undefined) {
+      if (save !== null) {
+        this.setState({
+          perSecond: upgrades.reduce((a, b) => {
+            return a + save[b.name].perSecond;
+          }, 0)
+        });
+      }
+    }
   };
 }
 

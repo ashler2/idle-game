@@ -2,7 +2,7 @@ import React from "react";
 
 const Clicker = props => {
   return (
-    <div>
+    <div className="Clicker__container">
       <button onClick={() => props.click()}>Steal</button>
     </div>
   );

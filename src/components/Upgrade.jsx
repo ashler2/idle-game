@@ -1,4 +1,5 @@
 import React from "react";
+import { formatCash } from "../utils";
 
 class Upgrade extends React.Component {
   state = {
@@ -21,13 +22,23 @@ class Upgrade extends React.Component {
   render() {
     const { quantity, perSecond, cost } = this.state;
     return (
-      <div>
-        <p>{` ${quantity} ${this.props.name.split("_").join(" ")} `}</p>
-        <p> IMG to go here</p>
-        <p> Multipliers to go heres</p>
-        <p>{`Per second: ${perSecond} `}</p>
-        <p>{`Cost: ${cost}`}</p>
+      <div className="Upgrade__container">
+        <p className="Upgrade__container__name">{`${quantity} ${this.props.name.replace(
+          /_/g,
+          " "
+        )} `}</p>
+        <p className="Upgrade__container__img"> IMG to go here</p>
+        <p className="Upgrade__container__multiplier">
+          Multipliers to go heres
+        </p>
+        <p className="Upgrade__container__perSecond">{`Per second: £${formatCash(
+          perSecond
+        )} `}</p>
+        <p className="Upgrade__container__cost">{`Cost: £${formatCash(
+          cost
+        )}`}</p>
         <button
+          className="Upgrade__container__button"
           onClick={() => {
             this.buy();
           }}

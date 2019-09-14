@@ -1,0 +1,46 @@
+@import "./Variable";
+@import "./Functions";
+@import "./mixin";
+
+.App {
+  color: black;
+  font-size: font(normal);
+  display: grid;
+  margin: 20px;
+  grid-template-columns: 450px 1fr;
+  grid-template-rows: 8vh 12vh 79vh;
+  grid-template-areas: "CurrentMoney__container CurrentMoney__container" "Info__container ." "Clicker__container Upgrade__container";
+}
+
+.CurrentMoney__container {
+  grid-area: CurrentMoney__container;
+  @include center;
+}
+.Info__container {
+  grid-area: Info__container;
+  @include center;
+}
+.Clicker__container {
+  grid-area: Clicker__container;
+  @include center;
+  button {
+    background: black;
+    color: white;
+  }
+}
+.Upgrade__container {
+  grid-area: Upgrade__container;
+  @include center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "Upgrade__container__name Upgrade__container__perSecond Upgrade__container__cost"
+    "Upgrade__container__img Upgrade__container__multiplier Upgrade__container__button";
+  #{&}__name {
+    grid-area: Upgrade__container__name;
+  }
+  #{&}__img {
+    grid-area: Upgrade__container__img;
+  }
+}
