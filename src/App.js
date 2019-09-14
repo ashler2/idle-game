@@ -19,6 +19,7 @@ class App extends React.Component {
       const obj = this.state.saveObj;
       localStorage.setItem("gameSession", JSON.stringify(obj));
     };
+    console.log(this.state);
   }
   render() {
     return (
@@ -62,6 +63,8 @@ class App extends React.Component {
   };
   buildSaveObj = (key, value) => {
     const obj = this.state.saveObj;
+    obj.cash = this.state.cash;
+    obj.perSecond = this.state.perSecond;
 
     if (!obj[key]) {
       obj[key] = { ...value };
