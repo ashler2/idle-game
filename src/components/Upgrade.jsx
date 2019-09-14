@@ -5,21 +5,28 @@ class Upgrade extends React.Component {
     quantity: 0,
     perSecond: 0,
     multiplier: 0,
-    name: "test",
+    name: this.props.name,
     cost: this.props.startCost,
     costMultiplier: 1.2,
     saveObj: {}
   };
+  componentDidMount() {
+    const { saveObj } = this.props;
+    this.setState({
+      perSecond: saveObj !== undefined ? saveObj.perSecond : 0,
+      quantity: saveObj !== undefined ? saveObj.quantity : 0,
+      cost: saveObj !== undefined ? saveObj.cost : this.props.startCost
+    });
+  }
   render() {
+    const { quantity, perSecond, cost } = this.state;
     return (
       <div>
-        <p>{` ${this.state.quantity} ${this.props.name
-          .split("_")
-          .join(" ")} `}</p>
+        <p>{` ${quantity} ${this.props.name.split("_").join(" ")} `}</p>
         <p> IMG to go here</p>
         <p> Multipliers to go heres</p>
-        <p>{`Per second: ${this.state.perSecond} `}</p>
-        <p>{`Cost: ${this.state.cost}`}</p>
+        <p>{`Per second: ${perSecond} `}</p>
+        <p>{`Cost: ${cost}`}</p>
         <button
           onClick={() => {
             this.buy();

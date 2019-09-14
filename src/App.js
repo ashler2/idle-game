@@ -13,14 +13,29 @@ class App extends React.Component {
     buyMultiplier: 1,
     saveObj: {}
   };
-  componentDidMount() {
+  componentDidMount = async () => {
     setInterval(this.cashPerSecond, 1000);
     window.onbeforeunload = () => {
       const obj = this.state.saveObj;
       localStorage.setItem("gameSession", JSON.stringify(obj));
     };
-    console.log(this.state);
-  }
+    const save = JSON.parse(localStorage.getItem("gameSession"));
+    if (save !== null) {
+      await this.setState({
+        cash: save.cash,
+        saveObj: save
+      });
+    }
+    if (save !== undefined) {
+      if (save !== null) {
+        this.setState({
+          perSecond: upgrades.reduce((a, b) => {
+            return a + save[b.name].perSecond;
+          }, 0)
+        });
+      }
+    }
+  };
   render() {
     return (
       <div className="App">
@@ -32,6 +47,10 @@ class App extends React.Component {
         <Clicker click={this.click}></Clicker>
         <div className="upgrades">
           {upgrades.map((item, index) => {
+            const save =
+              JSON.parse(localStorage.getItem("gameSession")) ||
+              this.state.saveObj;
+
             return (
               <Upgrade
                 key={index}
@@ -39,6 +58,7 @@ class App extends React.Component {
                 cash={this.state.cash}
                 update={this.updatePerSecond}
                 perSecond={item.perSecond}
+                saveObj={save[item.name]}
                 name={item.name}
                 startCost={item.startCost}
                 save={this.buildSaveObj}
@@ -59,12 +79,14 @@ class App extends React.Component {
     this.setState({ perSecond: this.state.perSecond + perSecond });
   };
   cashPerSecond = () => {
-    this.setState({ cash: this.state.cash + this.state.perSecond });
+    const { cash, perSecond } = this.state;
+    this.setState({ cash: cash + perSecond });
   };
   buildSaveObj = (key, value) => {
-    const obj = this.state.saveObj;
-    obj.cash = this.state.cash;
-    obj.perSecond = this.state.perSecond;
+    const { saveObj, cash, perSecond } = this.state;
+    const obj = saveObj;
+    obj.cash = cash;
+    obj.perSecond = perSecond;
 
     if (!obj[key]) {
       obj[key] = { ...value };
@@ -72,9 +94,6 @@ class App extends React.Component {
       obj[key] = { ...value };
     }
     return obj;
-  };
-  saveObj = obj => {
-    this.setState({ saveObject: obj });
   };
 }
 
