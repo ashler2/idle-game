@@ -10,10 +10,15 @@ class App extends React.Component {
     cash: 0,
     clickerLevel: 0,
     perSecond: 0,
-    buyMultiplier: 1
+    buyMultiplier: 1,
+    saveObj: {}
   };
   componentDidMount() {
     setInterval(this.cashPerSecond, 1000);
+    window.onbeforeunload = () => {
+      const obj = this.state.saveObj;
+      localStorage.setItem("gameSession", JSON.stringify(obj));
+    };
   }
   render() {
     return (
@@ -28,12 +33,14 @@ class App extends React.Component {
           {upgrades.map((item, index) => {
             return (
               <Upgrade
+                key={index}
                 spend={this.spend}
                 cash={this.state.cash}
                 update={this.updatePerSecond}
                 perSecond={item.perSecond}
                 name={item.name}
                 startCost={item.startCost}
+                save={this.buildSaveObj}
               ></Upgrade>
             );
           })}
@@ -42,16 +49,29 @@ class App extends React.Component {
     );
   }
   click = () => {
-    this.setState({ cash: (this.state.cash += 1 + this.state.clickerLevel) });
+    this.setState({ cash: this.state.cash + (1 + this.state.clickerLevel) });
   };
   spend = cost => {
-    this.setState({ cash: (this.state.cash -= cost) });
+    this.setState({ cash: this.state.cash - cost });
   };
   updatePerSecond = perSecond => {
-    this.setState({ perSecond: (this.state.perSecond += perSecond) });
+    this.setState({ perSecond: this.state.perSecond + perSecond });
   };
   cashPerSecond = () => {
-    this.setState({ cash: (this.state.cash += this.state.perSecond) });
+    this.setState({ cash: this.state.cash + this.state.perSecond });
+  };
+  buildSaveObj = (key, value) => {
+    const obj = this.state.saveObj;
+
+    if (!obj[key]) {
+      obj[key] = { ...value };
+    } else {
+      obj[key] = { ...value };
+    }
+    return obj;
+  };
+  saveObj = obj => {
+    this.setState({ saveObject: obj });
   };
 }
 

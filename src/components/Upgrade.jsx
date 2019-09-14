@@ -1,6 +1,4 @@
-// @flow
 import React from "react";
-import { async } from "q";
 
 class Upgrade extends React.Component {
   state = {
@@ -9,12 +7,15 @@ class Upgrade extends React.Component {
     multiplier: 0,
     name: "test",
     cost: this.props.startCost,
-    costMultiplier: 1.2
+    costMultiplier: 1.2,
+    saveObj: {}
   };
   render() {
     return (
       <div>
-        <p>{` ${this.state.quantity} ${this.props.name} `}</p>
+        <p>{` ${this.state.quantity} ${this.props.name
+          .split("_")
+          .join(" ")} `}</p>
         <p> IMG to go here</p>
         <p> Multipliers to go heres</p>
         <p>{`Per second: ${this.state.perSecond} `}</p>
@@ -39,6 +40,10 @@ class Upgrade extends React.Component {
       });
       this.props.update(this.props.perSecond);
     }
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    this.props.save(this.props.name, this.state);
   };
 }
 
